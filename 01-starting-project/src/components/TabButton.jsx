@@ -1,21 +1,9 @@
-import { CORE_CONCEPTS } from "../../lib/data";
-
-export default function TabButton() {
-  function handleClick() {
-    console.log("Hello Word");
-  }
-
+export default function TabButton({ children, onSelect, isActive }) {
   return (
-    <section id="examples">
-      <menu>
-        {CORE_CONCEPTS.map((titles, idx) => {
-          return (
-            <li key={idx}>
-              <button onClick={handleClick}>{titles.title}</button>
-            </li>
-          );
-        })}
-      </menu>
-    </section>
+    <li>
+      <button className={isActive ? "active" : undefined} onClick={onSelect}>
+        {children}
+      </button>
+    </li>
   );
 }
