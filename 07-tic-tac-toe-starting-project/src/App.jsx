@@ -3,42 +3,53 @@ import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 import Log from "./components/Log";
 
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = "X";
+
+  if (gameTurns.length > 0 && gameTurns[0] === "X") {
+    currentPlayer = "0";
+  }
+
+  return currentPlayer;
+}
+
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
-  const [activePlayer, setActivePlayer] = useState("X");
+  //const [activePlayer, setActivePlayer] = useState("X");
+
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   function handleSelectSquare(rowIdx, colIdx) {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+    //setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
-      let currentPlayer = "X";
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
-      if (prevTurns.length > 0 && prevTurns[0] === "X") {
-        currentPlayer = "0";
-      }
       const updateTurns = [
-        { square: { row: rowIdx, col: colIdx }, player: activePlayer },
+        { square: { row: rowIdx, col: colIdx }, player: currentPlayer },
         ...prevTurns,
       ];
       return updateTurns;
     });
   }
   return (
-    <div id="game-container">
-      <ol id="players" className="highlight-player">
-        <Player
-          inicialName="PLAYER 1"
-          symbol="X"
-          isActive={activePlayer === "X"}
-        />
-        <Player
-          inicialName="PLAYER 2"
-          symbol="O"
-          isActive={activePlayer === "O"}
-        />
-      </ol>
-      <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
-      <Log />
-    </div>
+    <>
+      <div id="game-container">
+        <ol id="players" className="highlight-player">
+          <Player
+            inicialName="PLAYER 1"
+            symbol="X"
+            isActive={activePlayer === "X"}
+          />
+          <Player
+            inicialName="PLAYER 2"
+            symbol="O"
+            isActive={activePlayer === "O"}
+          />
+        </ol>
+        <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
+      </div>
+      <Log turns={gameTurns} />
+    </>
   );
 }
 
