@@ -6,8 +6,8 @@ import Log from "./components/Log";
 function deriveActivePlayer(gameTurns) {
   let currentPlayer = "X";
 
-  if (gameTurns.length > 0 && gameTurns[0] === "X") {
-    currentPlayer = "0";
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
   }
 
   return currentPlayer;
@@ -32,7 +32,7 @@ function App() {
     });
   }
   return (
-    <>
+    <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
@@ -49,7 +49,7 @@ function App() {
         <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
       </div>
       <Log turns={gameTurns} />
-    </>
+    </main>
   );
 }
 
