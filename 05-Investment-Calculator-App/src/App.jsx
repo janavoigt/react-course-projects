@@ -2,10 +2,25 @@ import Header from "./components/Header";
 import UserInput from "./components/UserInput";
 
 function App() {
+  const [userInput, setUserInput] = useState({
+    inicialInvestment: 10000,
+    annualInvestment: 1200,
+    expectReturn: 6,
+    duration: 10,
+  });
+
+  function handleChange(inputIdentifier, newValue) {
+    setUserInput((prevUserInput) => {
+      return {
+        ...prevUserInput,
+        [inputIdentifier]: newValue,
+      };
+    });
+  }
   return (
     <>
       <Header />
-      <UserInput />;
+      <UserInput userInput={userInput} onChange={handleChange} />;
     </>
   );
 }
