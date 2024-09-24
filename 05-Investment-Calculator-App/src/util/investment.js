@@ -1,20 +1,20 @@
 // This function expects a JS object as an argument
 // The object should contain the following properties
-// - initialInvestment: The initial investment amount
+// - c: The initial investment amount
 // - annualInvestment: The amount invested every year
-// - expectedReturn: The expected (annual) rate of return
+// - expectReturn: The expected (annual) rate of return
 // - duration: The investment duration (time frame)
 export function calculateInvestmentResults({
-  initialInvestment,
+  inicialInvestment,
   annualInvestment,
-  expectedReturn,
+  expectReturn,
   duration,
 }) {
   const annualData = [];
-  let investmentValue = initialInvestment;
+  let investmentValue = inicialInvestment;
 
   for (let i = 0; i < duration; i++) {
-    const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+    const interestEarnedInYear = investmentValue * (expectReturn / 100);
     investmentValue += interestEarnedInYear + annualInvestment;
     annualData.push({
       year: i + 1, // year identifier
@@ -30,9 +30,9 @@ export function calculateInvestmentResults({
 // The browser-provided Intl API is used to prepare a formatter object
 // This object offers a "format()" method that can be used to format numbers as currency
 // Example Usage: formatter.format(1000) => yields "$1,000"
-export const formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
+export const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
   minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
