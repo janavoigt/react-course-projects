@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Input from "./Input";
 
-export default function NewProject() {
+export default function NewProject({ onAdd }) {
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
@@ -10,6 +10,12 @@ export default function NewProject() {
     const enteredTitle = title.current.value;
     const enteredDescription = description.current.value;
     const enteredDueDate = dueDate.current.value;
+
+    onAdd({
+      title: enteredTitle,
+      description: enteredDescription,
+      dueDate: enteredDueDate,
+    });
   }
 
   return (

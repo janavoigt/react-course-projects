@@ -2,7 +2,7 @@ import { useState } from "react";
 import NewProject from "./components/NewProject";
 import NoProjectselected from "./components/NoProjectselected";
 import ProjectSideBar from "./components/ProjectSideBar";
-import { uid } from "react";
+import { uid } from "uid";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -13,10 +13,15 @@ function App() {
     setNewProject(true);
   }
 
+  function handleAddProject(projectData) {
+    setProjects([...projects, { id: uid(), ...projectData }]);
+    console.log(projects);
+  }
+
   let content;
 
   if (newProject === true) {
-    content = <NewProject />;
+    content = <NewProject onAdd={handleAddProject} />;
   } else if (selectedProject === undefined) {
     content = <NoProjectselected onAddProject={handleStartAddProject} />;
   }
