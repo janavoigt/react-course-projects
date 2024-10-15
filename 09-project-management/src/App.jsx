@@ -13,6 +13,11 @@ function App() {
     setNewProject(true);
   }
 
+  function handleCancelAddProject() {
+    setNewProject(false);
+    setSelectedProject(undefined);
+  }
+
   function handleAddProject(projectData) {
     setProjects([...projects, { id: uid(), ...projectData }]);
     console.log(projects);
@@ -21,7 +26,9 @@ function App() {
   let content;
 
   if (newProject === true) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
+    );
   } else if (selectedProject === undefined) {
     content = <NoProjectselected onAddProject={handleStartAddProject} />;
   }
