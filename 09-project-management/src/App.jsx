@@ -3,9 +3,23 @@ import NewProject from "./components/NewProject";
 import NoProjectselected from "./components/NoProjectselected";
 import ProjectSideBar from "./components/ProjectSideBar";
 import { uid } from "uid";
+import SelectedProject from "./components/SelectedProject";
 
 function App() {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([
+    {
+      id: "1234",
+      title: "Project 1",
+      description: "Desc of proj 1",
+      dueDate: new Date(),
+    },
+    {
+      id: "5678",
+      title: "Project 2",
+      description: "Desc of proj 2",
+      dueDate: new Date(),
+    },
+  ]);
   const [selectedProject, setSelectedProject] = useState(undefined);
   const [newProject, setNewProject] = useState(false);
 
@@ -13,22 +27,43 @@ function App() {
     setNewProject(true);
   }
 
+  function handleCancelAddProject() {
+    setNewProject(false);
+    setSelectedProject(undefined);
+  }
+
+  function handleSelectProject(id) {
+    setSelectedProject(id);
+  }
+
   function handleAddProject(projectData) {
-    setProjects([...projects, { id: uid(), ...projectData }]);
+    const id = uid();
+    setNewProject(false);
+    setProjects([...projects, { id, ...projectData }]);
+    setSelectedProject(id);
     console.log(projects);
   }
 
   let content;
 
   if (newProject === true) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
+    );
   } else if (selectedProject === undefined) {
     content = <NoProjectselected onAddProject={handleStartAddProject} />;
+  } else {
+    let selected = projects.find((project) => project.id === selectedProject);
+    content = <SelectedProject project={selected} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSideBar onAddProject={handleStartAddProject} />
+      <ProjectSideBar
+        onSelectProject={handleSelectProject}
+        onAddProject={handleStartAddProject}
+        projects={projects}
+      />
       {content}
     </main>
   );
