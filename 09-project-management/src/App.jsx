@@ -44,6 +44,11 @@ function App() {
     console.log(projects);
   }
 
+  function handleDeleteProject() {
+    setSelectedProject(undefined);
+    setProjects(projects.filter((project) => project.id !== selectedProject));
+  }
+
   let content;
 
   if (newProject === true) {
@@ -54,7 +59,9 @@ function App() {
     content = <NoProjectselected onAddProject={handleStartAddProject} />;
   } else {
     let selected = projects.find((project) => project.id === selectedProject);
-    content = <SelectedProject project={selected} />;
+    content = (
+      <SelectedProject project={selected} onDelete={handleDeleteProject} />
+    );
   }
 
   return (
