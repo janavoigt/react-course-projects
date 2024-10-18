@@ -12,16 +12,22 @@ function App() {
       title: "Project 1",
       description: "Desc of proj 1",
       dueDate: new Date(),
+      tasks: [],
     },
     {
       id: "5678",
       title: "Project 2",
       description: "Desc of proj 2",
       dueDate: new Date(),
+      tasks: [],
     },
   ]);
   const [selectedProject, setSelectedProject] = useState(undefined);
   const [newProject, setNewProject] = useState(false);
+
+  function handleAddTask() {}
+
+  function handleDeleteTask() {}
 
   function handleStartAddProject() {
     setNewProject(true);
@@ -60,7 +66,12 @@ function App() {
   } else {
     let selected = projects.find((project) => project.id === selectedProject);
     content = (
-      <SelectedProject project={selected} onDelete={handleDeleteProject} />
+      <SelectedProject
+        project={selected}
+        onDelete={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+      />
     );
   }
 
