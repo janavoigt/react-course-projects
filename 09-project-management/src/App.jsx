@@ -40,7 +40,19 @@ function App() {
     );
   }
 
-  function handleDeleteTask() {}
+  function handleDeleteTask(id) {
+    setProjects((prevProjects) =>
+      prevProjects.map((project) => {
+        if (project.id === selectedProject) {
+          return {
+            ...project,
+            tasks: project.tasks.filter((task) => task.id !== id),
+          };
+        }
+        return project;
+      })
+    );
+  }
 
   function handleStartAddProject() {
     setNewProject(true);
