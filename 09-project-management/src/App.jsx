@@ -12,16 +12,22 @@ function App() {
       title: "Project 1",
       description: "Desc of proj 1",
       dueDate: new Date(),
+      tasks: [],
     },
     {
       id: "5678",
       title: "Project 2",
       description: "Desc of proj 2",
       dueDate: new Date(),
+      tasks: [],
     },
   ]);
   const [selectedProject, setSelectedProject] = useState(undefined);
   const [newProject, setNewProject] = useState(false);
+
+  function handleAddTask() {}
+
+  function handleDeleteTask() {}
 
   function handleStartAddProject() {
     setNewProject(true);
@@ -44,6 +50,11 @@ function App() {
     console.log(projects);
   }
 
+  function handleDeleteProject() {
+    setSelectedProject(undefined);
+    setProjects(projects.filter((project) => project.id !== selectedProject));
+  }
+
   let content;
 
   if (newProject === true) {
@@ -54,7 +65,14 @@ function App() {
     content = <NoProjectselected onAddProject={handleStartAddProject} />;
   } else {
     let selected = projects.find((project) => project.id === selectedProject);
-    content = <SelectedProject project={selected} />;
+    content = (
+      <SelectedProject
+        project={selected}
+        onDelete={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    );
   }
 
   return (
