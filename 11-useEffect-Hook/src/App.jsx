@@ -6,12 +6,16 @@ import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
+import useLocalStorageState from "use-local-storage-state";
 
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  // const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useLocalStorageState("pickedPlaces", {
+    defaultValue: [],
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
