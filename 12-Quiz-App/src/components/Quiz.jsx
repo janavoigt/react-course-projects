@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import QUESTIONS from "../questions.js";
 import imgQuizComplete from "../assets/quiz-complete.png";
 import Question from "./Question.jsx";
@@ -53,9 +53,9 @@ export default function Quiz() {
         key={activeQuestionIndex}
         questionText={QUESTIONS[activeQuestionIndex].text}
         answers={QUESTIONS[activeQuestionIndex].answers}
-        onSelectAnswer={handleSelectedAnswer}
-        selectedAnswer={userAnswers[userAnswers.length - 1]}
         answerState={answerState}
+        selectedAnswer={userAnswers[userAnswers.length - 1]}
+        onSelectAnswer={handleSelectedAnswer}
         onSkipAnswer={handleSkipAnswer}
       />
     </div>
