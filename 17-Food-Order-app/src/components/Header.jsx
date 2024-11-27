@@ -17,7 +17,7 @@ export default function Haeder() {
         <h1>ReactFood</h1>
       </div>
       <nav>
-        <Button textOnly>Cart {totalCartItems}</Button>
+        <Button textOnly>Cart ({totalCartItems})</Button>
       </nav>
     </header>
   );
