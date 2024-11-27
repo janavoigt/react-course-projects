@@ -6,7 +6,7 @@ import Button from "./Button.jsx";
 import UserProgressContext from "./store/UserProgressContext.jsx";
 
 export default function Cart() {
-  const { items } = useContext(CartContext);
+  const { items, addItemToCart, removeItemCart } = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
 
   const cartTotal = items.reduce(
@@ -17,13 +17,29 @@ export default function Cart() {
   function handleCloseCart() {
     userProgressCtx.hideCart();
   }
+
+  function hadleIncreaseItem(item) {
+    addItemToCart(item);
+  }
+
+  function handleDecreaseItem(id) {
+    removeItemCart(id);
+  }
+
   return (
     <Modal className="cart" open={userProgressCtx.progress === "cart"}>
       <h2>Your Cart</h2>
       <ul>
         {items.map((item) => (
-          <li key={item.id}>
-            {item.name} - {item.quantity}
+          <li key={item.id} className="cart-item">
+            <p>
+              {item.name} - {item.quantity} x {item.price}
+            </p>
+            <p className="cart-item-actions">
+              <button onClick={() => handleDecreaseItem(item.id)}>-</button>
+              <span>{item.quantity}</span>
+              <button onClick={() => hadleIncreaseItem(item)}>+</button>
+            </p>
           </li>
         ))}
       </ul>
